@@ -1,0 +1,29 @@
+version: '2'
+services:
+  mongo:
+    image: mongo:3.2
+    command: --nojournal
+    networks:
+    - local
+  orion:
+    image: fiware/orion
+    depends_on:
+     - mongo
+    networks:
+    - local
+    ports:
+    - "1026:1026"
+    command: -dbhost mongo
+  asset-subscription-proxy:
+    image: boldt/organicity-asset-subscription-proxy:0.0.1
+    depends_on:
+    - orion
+    networks:
+    - local
+    ports:
+    - "9999:9999"
+    volumes:
+    - /opt/organicity-asset-subscription-proxy-config.js:/opt/organicity-asset-subscription-proxy/config.js
+networks:
+  local:
+    driver: bridge
