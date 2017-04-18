@@ -15,7 +15,7 @@ services:
     - "1026:1026"
     command: -dbhost mongo
   asset-subscription-proxy:
-    image: boldt/organicity-asset-subscription-proxy:0.0.1
+    image: boldt/organicity-asset-subscription-proxy:0.0.2
     depends_on:
     - orion
     networks:
